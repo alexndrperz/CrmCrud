@@ -5,7 +5,7 @@ using CrmCrud.Api.Services;
 namespace CrmCrud.Api.Controllers;
 
 [ApiController]
-[Route("api/crm")]
+[Route("api/[controller]")]
 public class CrmController : ControllerBase
 {
     private readonly ICrmService _service;
