@@ -1,7 +1,5 @@
 const API = 'https://localhost:7024/api/crm';
-const modal = new bootstrap.Modal(document.getElementById('crmModal'));
 
-load();
 
 async function load() {
   const tbody = document.getElementById('tableBody');
@@ -32,15 +30,15 @@ async function load() {
   }
 }
 
-
-
-function openModal() {
-  document.getElementById('modalTitle').textContent = 'Nuevo registro';
-  document.getElementById('entryId').value      = '';
-  document.getElementById('customerName').value = '';
-  document.getElementById('phone').value        = '';
-  document.getElementById('message').value      = '';
-  modal.show();
+async function remove(id) {
+  if (!confirm('¿Eliminar este registro?')) return;
+  const res = await fetch(`${API}/${id}`, { method: 'DELETE' });
+  if (res.ok || res.status === 204) {
+    showAlert('Registro eliminado.', 'success');
+    load();
+  } else {
+    showAlert('Error al eliminar.', 'danger');
+  }
 }
 
 async function save() {
@@ -74,3 +72,5 @@ async function save() {
     showAlert('Error al guardar.', 'danger');
   }
 }
+
+load();
