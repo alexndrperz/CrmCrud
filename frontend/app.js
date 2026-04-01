@@ -1,5 +1,5 @@
 const API = 'https://localhost:7024/api/crm';
-
+const modal = new bootstrap.Modal(document.getElementById('crmModal'));
 
 async function load() {
   const tbody = document.getElementById('tableBody');
@@ -41,6 +41,21 @@ async function remove(id) {
   }
 }
 
+function openModal() {
+  document.getElementById('modalTitle').textContent = 'Nuevo registro';
+  document.getElementById('entryId').value      = '';
+  document.getElementById('customerName').value = '';
+  document.getElementById('phone').value        = '';
+  document.getElementById('message').value      = '';
+  modal.show();
+}
+
+function showAlert(msg, type) {
+  const el = document.getElementById('alert');
+  el.className   = `alert alert-${type}`;
+  el.textContent = msg;
+  setTimeout(() => (el.className = 'alert d-none'), 3000);
+}
 async function save() {
   const id   = document.getElementById('entryId').value;
   const body = {
@@ -50,7 +65,7 @@ async function save() {
   };
 
   if (!body.customerName || !body.phone || !body.message)
-    return showAlert('Completá todos los campos.', 'warning');
+    return showAlert('Completa todos los campos.', 'warning');
 
   const res = id
     ? await fetch(`${API}/${id}`, {
@@ -66,7 +81,7 @@ async function save() {
 
   if (res.ok || res.status === 201 || res.status === 204) {
     modal.hide();
-    showAlert(id ? 'Registro actualizado.' : 'Registro creado.', 'success');
+    showAlert(id ? 'Actualizado.' : 'Creado.', 'success');
     load();
   } else {
     showAlert('Error al guardar.', 'danger');
