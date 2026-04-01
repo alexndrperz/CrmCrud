@@ -30,4 +30,47 @@ async function load() {
   }
 }
 
+async function remove(id) {
+  if (!confirm('¿Eliminar este registro?')) return;
+  const res = await fetch(`${API}/${id}`, { method: 'DELETE' });
+  if (res.ok || res.status === 204) {
+    showAlert('Registro eliminado.', 'success');
+    load();
+  } else {
+    showAlert('Error al eliminar.', 'danger');
+  }
+}
+
+async function save() {
+  const id   = document.getElementById('entryId').value;
+  const body = {
+    customerName: document.getElementById('customerName').value.trim(),
+    phone:        document.getElementById('phone').value.trim(),
+    message:      document.getElementById('message').value.trim(),
+  };
+
+  if (!body.customerName || !body.phone || !body.message)
+    return showAlert('Completá todos los campos.', 'warning');
+
+  const res = id
+    ? await fetch(`${API}/${id}`, {
+        method:  'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ id: Number(id), ...body }),
+      })
+    : await fetch(API, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(body),
+      });
+
+  if (res.ok || res.status === 201 || res.status === 204) {
+    modal.hide();
+    showAlert(id ? 'Registro actualizado.' : 'Registro creado.', 'success');
+    load();
+  } else {
+    showAlert('Error al guardar.', 'danger');
+  }
+}
+
 load();
