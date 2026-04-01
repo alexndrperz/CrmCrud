@@ -6,7 +6,7 @@ async function load() {
   try {
     const res  = await fetch(API);
     const data = await res.json();
-
+    // console.log(data);
     if (data.length === 0) {
       tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Sin registros aún</td></tr>';
       return;
@@ -29,3 +29,5 @@ async function load() {
     tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-danger">No se pudo conectar con la API</td></tr>';
   }
 }
+
+load();
