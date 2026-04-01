@@ -14,6 +14,35 @@
     </div>
   </nav>
 
+    <div class="container">
+
+    <div id="alert" class="alert d-none" role="alert"></div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4>Registros de clientes</h4>
+      <button class="btn btn-primary" onclick="openModal()">Nuevo registro</button>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Cliente</th>
+          <th>Telefono</th>
+          <th>Mensaje</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <tr>
+          <td colspan="6" class="text-center">Cargando...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="app.js"></script>
 </body>

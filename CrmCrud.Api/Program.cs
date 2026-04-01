@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 
-//builder.Services.AddScoped<ICrmService, CrmService>();
+builder.Services.AddScoped<ICrmService, CrmService>();
 
 builder.Services.AddCors(opt =>
     opt.AddDefaultPolicy(p =>
